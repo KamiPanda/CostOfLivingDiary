@@ -25,6 +25,9 @@
         <activity
             android:name="com.example.costoflivingdiary.AddItemActivity" >
         </activity>
+        <activity
+            android:name="com.example.costoflivingdiary.PrefListPriceActivity" >
+        </activity>
     </application>
 
 </manifest>

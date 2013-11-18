@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 public class MainActivity extends ListActivity {
 
-	
+	final static String ITEM_INDEX = "ITEM_INDEX";
 	final static ArrayList<CostOfLivingItem> LIST = new ArrayList<CostOfLivingItem>();
 	private boolean mFooterAdded = false;
 	@Override
@@ -80,11 +80,16 @@ public class MainActivity extends ListActivity {
             }
 
             final CostOfLivingItem item = items.get(position);
+            final int pos = position;
             
             v.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                	//Todo start all preference view
+                	Bundle bundle = new Bundle();
+                	bundle.putInt(ITEM_INDEX, pos);
+                	Intent intent = new Intent(getActivity(), PrefListPriceActivity.class);
+                	intent.putExtras(bundle);
+                	startActivity(intent);
                 }
             });
 
@@ -96,7 +101,7 @@ public class MainActivity extends ListActivity {
                 itemView.setText("Item: " + item.getItem());
                 price.setText("Price: " + item.getPriceString());
                 // Todo need to add in price from database
-                pref.setText("Price in " + item.getDefaultPreference() + ": ");
+                pref.setText(item.getDefaultPreference() + ": ");
 
             }       
             return v;           
