@@ -19,11 +19,10 @@ public class PrefListPriceActivity extends ListActivity {
 		Bundle bundle = getIntent().getExtras();
 		if(bundle != null) {
 			int index = bundle.getInt(MainActivity.ITEM_INDEX);
-			CostOfLivingItem item = MainActivity.LIST.get(index);
 			ArrayList<String> prefStringList = new ArrayList<String>();
-			for(int i = 0; i < item.getPreferenceSize(); i++) {
+			for(int i = 0; i < MainActivity.PREF_LIST.size(); i++) {
 				//TODO get prices somehow
-				prefStringList.add("Price in " + item.getPreferenceList().get(i) + ": ");
+				prefStringList.add("Price in " + MainActivity.PREF_LIST.get(i).getPreference() + ": ");
 			}
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                     R.layout.prefitem, R.id.prefEntry, prefStringList);

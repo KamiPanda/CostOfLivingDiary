@@ -6,14 +6,11 @@ public class CostOfLivingItem {
 
 	private String mItem;
 	private float mPrice;
-	private String mDefaultPreference;
-	private ArrayList<String> mPreferenceList = new ArrayList<String>();
+
 	
-	public CostOfLivingItem(String item, float price, String defaultPreference) {
+	public CostOfLivingItem(String item, float price) {
 		mItem = item;
 		mPrice = price;
-		mDefaultPreference = defaultPreference;
-		mPreferenceList.add(defaultPreference);
 	}
 	
 	public String getItem() {
@@ -35,25 +32,4 @@ public class CostOfLivingItem {
 		mPrice = price;
 	}
 	
-	public String getDefaultPreference() {
-		return mDefaultPreference;
-	}
-	
-	public void setDefaultPreference(String defaultPreference) {
-		mDefaultPreference = defaultPreference;
-	}
-	
-	public ArrayList<String> getPreferenceList() {
-		return mPreferenceList;
-	}
-	
-	public void addPreference(String preference) {
-		if(!mPreferenceList.contains(preference)){
-			mPreferenceList.add(preference);
-		}
-	}
-	
-	public int getPreferenceSize() {
-		return mPreferenceList.size();
-	}
 }

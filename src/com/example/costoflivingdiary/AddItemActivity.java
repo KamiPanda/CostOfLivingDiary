@@ -39,10 +39,16 @@ public class AddItemActivity extends Activity{
 		mSubmit = (Button) findViewById(R.id.itemSubmit);
 		mSubmit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	float price = Float.valueOf(mPrice.getText().toString());
+            	String priceString = mPrice.getText().toString();
+            	float price;
+            	if (priceString == null || priceString.isEmpty()) {
+            		price = -1;
+            	} else {
+            		price = Float.valueOf(priceString);
+            	}
             	String itemName = String.valueOf(mItemList.getSelectedItem());
             	//Todo need to implement preferences
-            	CostOfLivingItem item = new CostOfLivingItem(itemName, price, "United States");
+            	CostOfLivingItem item = new CostOfLivingItem(itemName, price);
             	MainActivity.LIST.add(item);
             	onBackPressed();
             }

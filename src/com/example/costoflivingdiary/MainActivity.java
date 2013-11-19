@@ -21,10 +21,14 @@ public class MainActivity extends ListActivity {
 
 	final static String ITEM_INDEX = "ITEM_INDEX";
 	final static ArrayList<CostOfLivingItem> LIST = new ArrayList<CostOfLivingItem>();
+	final static ArrayList<PreferenceItem> PREF_LIST = new ArrayList<PreferenceItem>();
 	private boolean mFooterAdded = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		PREF_LIST.add(new PreferenceItem("United States", true));
+		
 		getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         if(!mFooterAdded) {
         	mFooterAdded = true;
@@ -57,7 +61,15 @@ public class MainActivity extends ListActivity {
     	super.onResume();
         addItems();
     }
-	
+
+    public PreferenceItem getDefaultPreference() {
+    	for (PreferenceItem item : PREF_LIST) {
+    		if (item.isDefault()) {
+    			return item;
+    		}
+    	}
+    	return null;
+    }
 	private Activity getActivity(){
 		return this;
 	}
@@ -101,10 +113,16 @@ public class MainActivity extends ListActivity {
                 itemView.setText("Item: " + item.getItem());
                 price.setText("Price: " + item.getPriceString());
                 // Todo need to add in price from database
-                pref.setText(item.getDefaultPreference() + ": ");
+                PreferenceItem prefItem = getDefaultPreference();
+                if (prefItem != null) {
+                	pref.setText(prefItem.getPreference() + ": ");
+                } else {
+                	pref.setText("No Preference");
+                }
 
             }       
             return v;           
         }           
     }
+
 }
