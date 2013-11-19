@@ -28,6 +28,9 @@
         <activity
             android:name="com.example.costoflivingdiary.PrefListPriceActivity" >
         </activity>
+        <activity
+            android:name="com.example.costoflivingdiary.PreferenceListActivity" >
+        </activity>
     </application>
 
 </manifest>

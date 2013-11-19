@@ -24,7 +24,6 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000d;
         public static final int footer2=0x7f08000a;
         public static final int item=0x7f080007;
         public static final int itemCancel=0x7f080005;
@@ -34,6 +33,7 @@ public final class R {
         public static final int listView1=0x7f08000b;
         public static final int pref=0x7f080009;
         public static final int prefEntry=0x7f08000c;
+        public static final int preferenceSettings=0x7f08000d;
         public static final int price=0x7f080008;
         public static final int priceView=0x7f080000;
         public static final int textView1=0x7f080002;
