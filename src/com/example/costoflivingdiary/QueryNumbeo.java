@@ -32,23 +32,23 @@ public class QueryNumbeo extends AsyncTask <Void, Void, String> {
 	
 	@Override
 	protected String doInBackground(Void... params) {
-		 HttpClient httpClient = new DefaultHttpClient();
-		 HttpContext localContext = new BasicHttpContext();
-         HttpGet httpGet = new HttpGet("http://www.numbeo.com/api/country_prices?api_key=umd_edu_640&country=" + country);
-         String text = null;
-         try {
-               HttpResponse response = httpClient.execute(httpGet, localContext);
-               HttpEntity entity = response.getEntity();
-               text = getASCIIContentFromEntity(entity);
-         } catch (Exception e) {
-        	 return e.getLocalizedMessage();
-         }
-         return text;
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpContext localContext = new BasicHttpContext();
+        HttpGet httpGet = new HttpGet("http://www.numbeo.com/api/country_prices?api_key=umd_edu_640&country=" + country);
+        String text = null;
+        try {
+              HttpResponse response = httpClient.execute(httpGet, localContext);
+              HttpEntity entity = response.getEntity();
+              text = getASCIIContentFromEntity(entity);
+        } catch (Exception e) {
+        	return e.getLocalizedMessage();
+        }
+        this.results = text;
+        return text;
 	}	
 	
 	protected void onPostExecute(String results) {
 		super.onPostExecute(results);
-		this.results = results;
 	}
 }
 

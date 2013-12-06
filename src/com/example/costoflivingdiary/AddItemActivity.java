@@ -3,6 +3,9 @@ package com.example.costoflivingdiary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -27,10 +30,10 @@ public class AddItemActivity extends Activity{
 		mItemList = (Spinner) findViewById(R.id.itemDropDown);
 		List<String> list = new ArrayList<String>();
 		//TODO grab countries from prefs
-		String country = "Argentina";
+		String country = "Argentina"; //or whatver preference is
 		String results = queryNumbeo(country);
 		//TODO parse out items from results here
-		list.add(results);
+		
 		list.add("list 1");
 		list.add("list 2");
 		list.add("list 3");
@@ -72,6 +75,14 @@ public class AddItemActivity extends Activity{
 		QueryNumbeo q = new QueryNumbeo();
 		q.country = country;
 		q.execute();
+		//have to wait for doInBackground to finish so q.results is no longer null
+		if (q.results == null) {
+			try {
+				q.get(1000, TimeUnit.MILLISECONDS);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return q.results;
 	}
 	
