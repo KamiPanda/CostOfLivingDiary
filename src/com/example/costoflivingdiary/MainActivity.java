@@ -126,7 +126,7 @@ public class MainActivity extends ListActivity {
                 
                 itemView.setText("Item: " + item.getItem());
                 price.setText("Price: " + item.getPriceString());
-                // TODO need to add in price from database
+                // Todo need to add in price from database
                 PreferenceItem prefItem = getDefaultPreference();
                 if (prefItem != null) {
                 	pref.setText(prefItem.getPreference() + ": ");
