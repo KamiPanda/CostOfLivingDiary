@@ -69,11 +69,10 @@ public class AddItemActivity extends Activity{
 	}
 
 	private String queryNumbeo(String country) {
-		String queryURL = "http://www.numbeo.com/api/country_prices?api_key=umd_edu_640&country=Argentina";
 		QueryNumbeo q = new QueryNumbeo();
-		q.execute(queryURL);
-		String s = q.res;
-		return s;
+		q.country = country;
+		q.execute();
+		return q.results;
 	}
 	
 }
