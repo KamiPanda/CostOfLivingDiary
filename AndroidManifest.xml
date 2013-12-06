@@ -7,6 +7,8 @@
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="17" />
+    
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -31,9 +33,9 @@
         <activity
             android:name="com.example.costoflivingdiary.PreferenceListActivity" >
         </activity>
-                <activity
-            android:name="com.example.costoflivingdiary.AddPreferenceActivity" >
-        </activity>
+        <activity
+ 	            android:name="com.example.costoflivingdiary.AddPreferenceActivity" >
+    	</activity>
     </application>
 
 </manifest>
