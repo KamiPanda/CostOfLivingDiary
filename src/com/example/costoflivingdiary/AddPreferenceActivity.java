@@ -1,10 +1,5 @@
 package com.example.costoflivingdiary;
 
-<<<<<<< HEAD
-public class AddPreferenceActivity {
-
-}
-=======
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +56,7 @@ public class AddPreferenceActivity extends Activity{
      mSubmit.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
                String country = String.valueOf(mCountriesList.getSelectedItem());
-               //Todo need to implement preferences
+               //TODO need to implement preferences
                PreferenceItem item = new PreferenceItem(country, false);
                MainActivity.PREF_LIST.add(item);
                onBackPressed();
@@ -77,4 +72,3 @@ public class AddPreferenceActivity extends Activity{
      });
    }
   }
->>>>>>> pr/2

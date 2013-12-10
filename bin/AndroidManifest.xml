@@ -33,6 +33,9 @@
         <activity
             android:name="com.example.costoflivingdiary.PreferenceListActivity" >
         </activity>
+        <activity
+                     android:name="com.example.costoflivingdiary.AddPreferenceActivity" >
+            </activity>
     </application>
 
 </manifest>

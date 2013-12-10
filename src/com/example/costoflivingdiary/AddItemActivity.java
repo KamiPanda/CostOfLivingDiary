@@ -26,14 +26,17 @@ public class AddItemActivity extends Activity{
 		/* fill spinner */
 		mItemList = (Spinner) findViewById(R.id.itemDropDown);
 		List<String> list = new ArrayList<String>();
-		//TODO grab countries from prefs
-		String country = "Argentina"; //or whatever preference is
+		PreferenceItem prefItem = MainActivity.getDefaultPreference();
+        String country = prefItem.getPreference().replace(" ", "+");
 		String results = queryNumbeo(country);
-		//TODO parse out items from results here
-		
-		list.add("list 1");
-		list.add("list 2");
-		list.add("list 3");
+		String[] array = results.split(",\"item_name\":\"");
+        ArrayList<String> items = new ArrayList<String>();
+        for(String s : array){
+        	if(!s.startsWith("{")){
+                String[] item = s.split("\",\"");
+                list.add(item[0]);                
+        	}
+        }
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
 			android.R.layout.simple_spinner_item, list);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

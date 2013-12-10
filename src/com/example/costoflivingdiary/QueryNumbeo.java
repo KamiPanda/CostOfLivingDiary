@@ -34,7 +34,8 @@ public class QueryNumbeo extends AsyncTask <Void, Void, String> {
 	protected String doInBackground(Void... params) {
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpContext localContext = new BasicHttpContext();
-        HttpGet httpGet = new HttpGet("http://www.numbeo.com/api/country_prices?api_key=umd_edu_640&country=" + country);
+		String countryNoSpaces = country.replace(" ", "%20");
+        HttpGet httpGet = new HttpGet("http://www.numbeo.com/api/country_prices?api_key=umd_edu_640&country=" + countryNoSpaces);
         String text = null;
         try {
               HttpResponse response = httpClient.execute(httpGet, localContext);
