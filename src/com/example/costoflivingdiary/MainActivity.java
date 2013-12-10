@@ -1,6 +1,8 @@
 package com.example.costoflivingdiary;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -24,6 +26,7 @@ public class MainActivity extends ListActivity {
 	final static ArrayList<CostOfLivingItem> LIST = new ArrayList<CostOfLivingItem>();
 	final static ArrayList<PreferenceItem> PREF_LIST = new ArrayList<PreferenceItem>();
 	private boolean mFooterAdded = false;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,7 +79,7 @@ public class MainActivity extends ListActivity {
         addItems();
     }
 
-    public PreferenceItem getDefaultPreference() {
+    public static PreferenceItem getDefaultPreference() {
     	for (PreferenceItem item : PREF_LIST) {
     		if (item.isDefault()) {
     			return item;
@@ -119,24 +122,66 @@ public class MainActivity extends ListActivity {
                 }
             });
 
-            if (item != null){
+            if (item != null) {
                 TextView itemView = (TextView) v.findViewById(R.id.item);
-                TextView price = (TextView) v.findViewById(R.id.price);  
-                TextView pref = (TextView) v.findViewById(R.id.pref); 
-                
+                TextView price = (TextView) v.findViewById(R.id.price);
+                TextView pref = (TextView) v.findViewById(R.id.pref);
+
                 itemView.setText("Item: " + item.getItem());
                 price.setText("Price: " + item.getPriceString());
                 // TODO need to add in price from database
                 PreferenceItem prefItem = getDefaultPreference();
                 if (prefItem != null) {
-                	pref.setText(prefItem.getPreference() + ": ");
+                        String country = prefItem.getPreference();
+                        String result = queryNumbeo(country);
+                        TreeMap<String, String> averagePrices = getAveragePrices(result);
+                        pref.setText(country + ": " + averagePrices.get(item.getItem()));
+                        
                 } else {
-                	pref.setText("No Preference");
+                        pref.setText("No Preference");
                 }
 
-            }       
-            return v;           
-        }           
+            }
+            return v;          
+        }
+        public TreeMap<String, String> getAveragePrices(String result) {
+
+            String[] array = result.split(",\"item_name\":\"");
+            String[] averagePrice = result.split("\"average_price\":");
+            ArrayList<String> prices = new ArrayList<String>();
+            ArrayList<String> items = new ArrayList<String>();
+            TreeMap<String, String> averagePricePerItem = new TreeMap<String, String>();
+            for (String a : averagePrice) {
+                    if (!a.startsWith("{")) {
+                            String[] arr = a.split(",\"");
+                            prices.add(arr[0]);
+                    }
+            }
+            for (String s : array) {
+                    if (!s.startsWith("{")) {
+                            String[] item = s.split("\",\"");
+                            items.add(item[0]);
+                    }
+            }
+            for (int i = 0; i < items.size(); i++) {
+                    averagePricePerItem.put(items.get(i), prices.get(i));
+            }
+            return averagePricePerItem;
     }
 
+    public String queryNumbeo(String country) {
+            QueryNumbeo q = new QueryNumbeo();
+            q.country = country;
+            q.execute();
+            // have to wait for doInBackground to finish so q.results is no longer null
+            if(q.results == null) {
+                    try {
+                            q.get(1000, TimeUnit.MILLISECONDS);
+                    } catch (Exception e) {
+                            e.printStackTrace();
+                    }
+            }
+            return q.results;
+    }
+	}
 }

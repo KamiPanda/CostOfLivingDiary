@@ -56,7 +56,7 @@ public class AddPreferenceActivity extends Activity{
      mSubmit.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
                String country = String.valueOf(mCountriesList.getSelectedItem());
-               //Todo need to implement preferences
+               //TODO need to implement preferences
                PreferenceItem item = new PreferenceItem(country, false);
                MainActivity.PREF_LIST.add(item);
                onBackPressed();
